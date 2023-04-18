@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="t_answer")
-public class Answer {
+public class Answer extends BaseEntity{
 
 	@Column(nullable = false, length = 100)
 	private String name;

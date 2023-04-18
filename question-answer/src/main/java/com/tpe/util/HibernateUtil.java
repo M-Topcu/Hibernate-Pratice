@@ -10,7 +10,7 @@ public class HibernateUtil {
 		try {
 			sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 		} catch (Throwable t) {
-			System.out.println("Session Factory could not be created" + t);
+			System.out.println("Session Factory could not be created  " + t);
 			throw new ExceptionInInitializerError();		}
 	}
 	

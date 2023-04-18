@@ -4,17 +4,33 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
+import com.tpe.domain.Question;
+import com.tpe.domain.enums.QuestionPriority;
 import com.tpe.util.HibernateUtil;
 
 public class Client {
 	public static void main(String[] args) {
 		
+		Question question = new Question();
+		question.setName("What is Java");
+		question.setPriority(QuestionPriority.CRITICAL);
+		
+		Client client =new Client();
+		client.save(question);
+		
+		
+		
+		
+		HibernateUtil.getSessionFactory().close();
+		
 	}
 	
-	public void saveQuestion() {
+	public <T> void save(T t) {
 		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 		Session session = sessionFactory.openSession();
 		Transaction tx = session.beginTransaction();
+		
+		session.save(t);
 		
 		
 		tx.commit();

@@ -25,6 +25,10 @@
          <property name="show_sql">true</property> 
 
         <property name="format_sql">true</property>
+         
+        <mapping class="com.tpe.domain.Question"/>
+        <mapping class="com.tpe.domain.QuestionDetail"/>
+        <mapping class="com.tpe.domain.Answer"/>
 
 
     </session-factory>
