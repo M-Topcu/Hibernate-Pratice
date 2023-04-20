@@ -36,4 +36,18 @@ public class Client {
 		tx.commit();
 		session.close();
 	}
+	
+	public <T> T  find(Long id, Class <T> c) {
+		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+		Session session = sessionFactory.openSession();
+		Transaction tx = session.beginTransaction();
+		
+		T t =session.get(c,id);
+		
+		
+		tx.commit();
+		session.close();
+		
+		return t;
+	}
 }
