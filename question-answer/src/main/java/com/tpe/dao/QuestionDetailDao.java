@@ -1,4 +1,4 @@
-package com.tpe.domain.dao;
+package com.tpe.dao;
 
 import java.util.List;
 

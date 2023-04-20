@@ -16,7 +16,7 @@ public class Client {
 		question.setPriority(QuestionPriority.CRITICAL);
 		
 		Client client =new Client();
-		client.save(question);
+		
 		
 		
 		
@@ -24,30 +24,31 @@ public class Client {
 		HibernateUtil.getSessionFactory().close();
 		
 	}
+
 	
-	public <T> void save(T t) {
-		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-		Session session = sessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
-		
-		session.save(t);
-		
-		
-		tx.commit();
-		session.close();
-	}
-	
-	public <T> T  find(Long id, Class <T> c) {
-		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-		Session session = sessionFactory.openSession();
-		Transaction tx = session.beginTransaction();
-		
-		T t =session.get(c,id);
-		
-		
-		tx.commit();
-		session.close();
-		
-		return t;
-	}
+//	public <T> void save(T t) {
+//		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+//		Session session = sessionFactory.openSession();
+//		Transaction tx = session.beginTransaction();
+//		
+//		session.save(t);
+//		
+//		
+//		tx.commit();
+//		session.close();
+//	}
+//	
+//	public <T> T  find(Long id, Class <T> c) {
+//		SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+//		Session session = sessionFactory.openSession();
+//		Transaction tx = session.beginTransaction();
+//		
+//		T t =session.get(c,id);
+//		
+//		
+//		tx.commit();
+//		session.close();
+//		
+//		return t;
+//	}
 }

@@ -1,4 +1,4 @@
-package com.tpe.domain.dao;
+package com.tpe.dao;
 
 import java.util.List;
 
@@ -7,6 +7,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import com.tpe.domain.Answer;
@@ -20,7 +21,7 @@ public class AnswerDao extends HibernateDao<Answer> {
 
 	@Override
 	public List<Answer> getAll() {
-Session session = HibernateUtil.getSessionFactory().openSession();
+		Session session = HibernateUtil.getSessionFactory().openSession();
 		
 		CriteriaBuilder cBuilder = session.getCriteriaBuilder();
 		CriteriaQuery<Answer> criteriaQuery = cBuilder.createQuery(Answer.class);
@@ -31,6 +32,21 @@ Session session = HibernateUtil.getSessionFactory().openSession();
 		
 		List<Answer> resultList = query.getResultList();
 		
+		session.close();
+		
+		return resultList;
+	}
+	
+	public List<Answer> findAllByQuestionId(Long id){
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		Transaction tx = session.beginTransaction();
+		
+		Query<Answer> query = session.createQuery("FROM Answer a WHERE a.question.id=:questionId",Answer.class);
+		query.setParameter("questionId",id);
+		List<Answer> resultList = query.getResultList();
+		
+		tx.commit();
+		session.close();
 		return resultList;
 	}
 
