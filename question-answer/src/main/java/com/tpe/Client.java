@@ -33,33 +33,33 @@ public class Client {
 		Question questionFound = client.findQuestion(101L);
 //		client.deleteQuestion(questionFound.getId());
 		
-		Thread thead1 = new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				Question q = new Question();
-				q.setName("What is thread?");
-				q.setPriority(QuestionPriority.HIGH);
-				client.saveQuestion(q);
-				
-			}
-		});
-		thead1.start();
-		
-		
-		Thread thead2 = new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				Question q = new Question();
-				q.setName("What is NodeJS?");
-				q.setPriority(QuestionPriority.HIGH);
-				client.saveQuestion(q);
-				
-			}
-		});
-		
-		thead2.start();
+//		Thread thead1 = new Thread(new Runnable() {
+//			
+//			@Override
+//			public void run() {
+//				Question q = new Question();
+//				q.setName("What is thread?");
+//				q.setPriority(QuestionPriority.HIGH);
+//				client.saveQuestion(q);
+//				
+//			}
+//		});
+//		thead1.start();
+//		
+//		
+//		Thread thead2 = new Thread(new Runnable() {
+//			
+//			@Override
+//			public void run() {
+//				Question q = new Question();
+//				q.setName("What is NodeJS?");
+//				q.setPriority(QuestionPriority.HIGH);
+//				client.saveQuestion(q);
+//				
+//			}
+//		});
+//		
+//		thead2.start();
 		
 //		QuestionDetail detail = new QuestionDetail();
 //		detail.setDescription("It is about the relation");
@@ -94,8 +94,8 @@ public class Client {
 //		Lazy olursa LazyInitalizationException verir
 //		questionFound.getAnswerList().size();
 		
-		thead1.join();
-		thead2.join();
+//		thead1.join();
+//		thead2.join();
 		
 		HibernateUtil.getSessionFactory().close();
 		
@@ -121,7 +121,7 @@ public class Client {
 		return qService.find(id);
 		}
 
-	private synchronized void saveQuestion(Question question) {
+	private /*synchronized*/ void saveQuestion(Question question) {
 		qService.save(question);
 		}
 	
