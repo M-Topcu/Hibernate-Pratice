@@ -6,6 +6,7 @@ import com.tpe.dao.AnswerDao;
 import com.tpe.domain.Answer;
 import com.tpe.domain.Question;
 import com.tpe.domain.QuestionDetail;
+import com.tpe.domain.enums.QuestionPriority;
 import com.tpe.service.AnswerService;
 import com.tpe.service.IAnswerService;
 import com.tpe.service.IQuestionDetailService;
@@ -20,7 +21,7 @@ public class Client {
 	static IQuestionDetailService qDService = new QuestionDetailService();
 	static IAnswerService anService = new AnswerService();
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		
 //		Question question = new Question();
 //		question.setName("What is Hibernate");
@@ -31,6 +32,34 @@ public class Client {
 		
 		Question questionFound = client.findQuestion(101L);
 //		client.deleteQuestion(questionFound.getId());
+		
+		Thread thead1 = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				Question q = new Question();
+				q.setName("What is thread?");
+				q.setPriority(QuestionPriority.HIGH);
+				client.saveQuestion(q);
+				
+			}
+		});
+		thead1.start();
+		
+		
+		Thread thead2 = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				Question q = new Question();
+				q.setName("What is NodeJS?");
+				q.setPriority(QuestionPriority.HIGH);
+				client.saveQuestion(q);
+				
+			}
+		});
+		
+		thead2.start();
 		
 //		QuestionDetail detail = new QuestionDetail();
 //		detail.setDescription("It is about the relation");
@@ -56,12 +85,17 @@ public class Client {
 //		findAnswer.setName("Answer3");
 //		client.updateAnswer(findAnswer);
 		
-		List<Answer> answerList = client.findAnswersByQId(101L);
+//		List<Answer> answerList = client.findAnswersByQId(101L);
+//		
+//		for (Answer answer : answerList) {
+//			System.out.println(answer.getId()+" : "+answer.getName()+" : "+answer.getDescription());
+//		}
 		
-		for (Answer answer : answerList) {
-			System.out.println(answer.getId()+" : "+answer.getName()+" : "+answer.getDescription());
-		}
+//		Lazy olursa LazyInitalizationException verir
+//		questionFound.getAnswerList().size();
 		
+		thead1.join();
+		thead2.join();
 		
 		HibernateUtil.getSessionFactory().close();
 		
@@ -87,7 +121,7 @@ public class Client {
 		return qService.find(id);
 		}
 
-	private void saveQuestion(Question question) {
+	private synchronized void saveQuestion(Question question) {
 		qService.save(question);
 		}
 	
