@@ -14,9 +14,9 @@
 
         <property name="connection.url">jdbc:postgresql://localhost:5432/courses_db</property>
 
-        <property name="connection.username">dev_user</property>
+        <property name="connection.username">******</property>
 
-        <property name="connection.password">1234</property>
+        <property name="connection.password">******</property>
 
         <property name = "hibernate.dialect">org.hibernate.dialect.PostgreSQL9Dialect</property>
         			  
